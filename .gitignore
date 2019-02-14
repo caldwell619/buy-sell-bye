@@ -1,0 +1,10 @@
+# IntelliJ files
+*.iml
+target/
+.idea/
+
+# Config files
+**Config.java
+
+# Node Modules
+node_modules/
