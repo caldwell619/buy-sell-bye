@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
 import axios from 'axios';
+import './css/global.css';
+import Landing from './Components/Landing';
 
 class App extends Component {
     fetchTest = () => {
@@ -8,11 +9,8 @@ class App extends Component {
     };
   render() {
     return (
-     <div>
-       Hello
-         {this.fetchTest()}
-     </div>
-    );
+        <Landing/>
+    )
   }
 }
 
