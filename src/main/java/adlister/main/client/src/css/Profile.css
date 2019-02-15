@@ -1,0 +1,62 @@
+
+body{
+    background-image: url("/images/mobileback.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+}
+#view-window{
+    width: 440px;
+    height: auto;
+    margin: 50px 10px 10px;
+    margin-left: 130px;
+    background-color: black;
+    color: whitesmoke;
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 3px 3px 3px 3px black;
+    font-family: 'Staatliches', cursive;
+}
+#header{
+    background: rgba(0, 0, 0, 0.6);
+    color: ghostwhite;
+    height: 45px;
+    width: 500px;
+    text-align: center;
+    transform: rotate(-20deg);
+    align-content: center;
+    position: relative;
+    margin-top: -280px;
+    margin-right: 200px;
+    padding: 0;
+    text-space: 1px;
+    font-family: 'Gloria Hallelujah', cursive;
+
+
+}
+#view-buttons{
+    display: flex;
+    background-color: maroon;
+    justify-content: center;
+    margin-top: 80px;
+    font-family: 'Staatliches', cursive;
+}
+.profile-button{
+    color: white;
+    text-decoration: whitesmoke underline;
+    font-family: 'Staatliches', cursive;
+    font-size: 30px;
+}
+.profile-button:hover{
+    color: black;
+    text-decoration: black underline;
+    font-family: 'Staatliches', cursive;
+}
+.link{
+    color: whitesmoke;
+    font-family: 'Staatliches', cursive;
+    font-size: 15px;
+    text-space: 1px;
+    margin-top: -15px;
+}
+.link:hover{
+    color: gray;
+}

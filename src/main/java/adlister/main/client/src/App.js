@@ -2,10 +2,11 @@ import React, {Component, Fragment} from 'react';
 import './css/global.css';
 import axios from 'axios';
 import Landing from './Components/Landing';
-import { Route } from 'react-router-dom';
+
+import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './store/actions';
-import { BrowserRouter} from 'react-router-dom';
+import Profile from './Components/Profile';
 
 class App extends Component {
     constructor(){
@@ -63,6 +64,8 @@ class App extends Component {
                     <input type="text" value={this.state.title} onChange={this.titleChangeHandler.bind(this)}/>
                     </div>
                 </BrowserRouter>
+
+
         </React.Fragment>
     )
   }
