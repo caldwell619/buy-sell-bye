@@ -3,7 +3,7 @@ import './css/global.css';
 import axios from 'axios';
 import Landing from './Components/Landing';
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './store/actions';
 import Profile from './Components/Profile';
@@ -46,22 +46,24 @@ class App extends Component {
         axios.get("/api/listings").then(res => console.log(res))
             .catch(err => console.log(err))
     };
-
     titleChangeHandler = event => {
         this.setState({
             title: event.target.value
         })
     };
+
   render() {
       console.log(this.state);
     return (
         <React.Fragment>
                 <BrowserRouter>
-                    <div>
-                        <Route path={"/profile"} render={() => <Landing/>}/>
-                        <Route path={"/"}/><Landing/>
-                        <button onClick={this.postAd.bind(this, "1", this.state.title, "harriest")}>Post Ad</button>
-                    <input type="text" value={this.state.title} onChange={this.titleChangeHandler.bind(this)}/>
+                    <div className={"main-cont"}>
+                        <Switch>
+                            <Route path={"/profile/:type"} render={() => <Profile/>}/>
+                            <Route path={"/"} exact/><Landing/>
+                        </Switch>
+
+
                     </div>
                 </BrowserRouter>
 
@@ -76,3 +78,8 @@ const mapStateToProps = state => {
     return { user: state.user }
 };
 export default connect(mapStateToProps, actions)(App);
+
+
+
+// {/*<button onClick={this.postAd.bind(this, "1", this.state.title, "harriest")}>Post Ad</button>*/}
+{/*<input type="text" value={this.state.title} onChange={this.titleChangeHandler.bind(this)}/>*/}
