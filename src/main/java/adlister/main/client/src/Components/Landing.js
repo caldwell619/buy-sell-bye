@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
 class Landning extends Component {
+
     render() {
         return (
             <React.Fragment>

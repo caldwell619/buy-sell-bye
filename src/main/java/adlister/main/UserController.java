@@ -6,22 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
-// maps the url "/persons" to here
-//@RequestMapping("/persons")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @RequestMapping("/api/persons")
+    @RequestMapping("/api/users")
     public List<User> all(){
         return userService.all();
     }
-    @RequestMapping("{id}")
+
+    @RequestMapping("/api/users/{id}")
     public User findOne(@PathVariable("id") long id) {
         return userService.findOneUser(id);
     }
