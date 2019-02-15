@@ -1,4 +1,4 @@
-package adlister.main.controllers;
+package adlister.main;
 
 import adlister.main.service.UserService;
 import adlister.models.User;

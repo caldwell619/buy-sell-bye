@@ -1,4 +1,4 @@
-package adlister.main.controllers;
+package adlister.main;
 
 import adlister.main.service.AdsService;
 import adlister.models.Ad;
@@ -35,12 +35,13 @@ public class AdsController {
         return adsService.findOneAd(id);
     }
     // insert an ad
-    @PostMapping("/api/listing/post")
-    public String insertAd(
-            @RequestParam("user_id") long user_id,
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/api/listings/ad")
+    public void insertAd(
+            @RequestParam("user_id") String user_id,
             @RequestParam("title") String title,
             @RequestParam("description") String description
             ) {
-        return adsService.insertAd(user_id, title, description);
+        adsService.insertAd(1, title, description);
     }
 }
