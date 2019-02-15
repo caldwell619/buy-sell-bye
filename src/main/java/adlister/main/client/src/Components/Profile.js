@@ -8,7 +8,7 @@ class Profile extends Component{
         return (
             <React.Fragment>
             <div id={'header'}>
-                Welcome back 'username'<hr/>
+                Welcome back!<hr/>
                 <button><p className={'link'}>Home</p></button><button><p className={'link'}>Ads</p></button><button><p className={'link'}>Contact</p></button>
             </div>
 

@@ -1,19 +1,21 @@
 
 body{
-    background-image: url("/images/mobileback.jpg");
     background-size: cover;
-    background-attachment: fixed;
+    background: url("/images/mobileback.jpg") fixed;
+    width: 480px;
 }
 #view-window{
     width: 440px;
-    height: auto;
-    margin: 50px 10px 10px;
-    margin-left: 130px;
-    background-color: black;
+    margin: 50px 10px 10px 115px;
     color: whitesmoke;
     background: rgba(0, 0, 0, 0.6);
     box-shadow: 3px 3px 3px 3px black;
     font-family: 'Staatliches', cursive;
+    position: fixed;
+    top: 200px;
+    height: 500px;
+    display: block;
+    overflow-y: scroll
 }
 #header{
     background: rgba(0, 0, 0, 0.6);
@@ -23,12 +25,12 @@ body{
     text-align: center;
     transform: rotate(-20deg);
     align-content: center;
-    position: relative;
     margin-top: -280px;
     margin-right: 200px;
     padding: 0;
     text-space: 1px;
     font-family: 'Gloria Hallelujah', cursive;
+    font-size: 20px;
 
 
 }
