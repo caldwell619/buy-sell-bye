@@ -1,12 +1,11 @@
 package adlister.main;
 
+import adlister.main.service.LoginService;
 import adlister.main.service.UserService;
 import adlister.models.User;
+import adlister.util.Password;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -14,14 +13,16 @@ import java.util.List;
 @RestController
 public class LoginController {
 
+    @Autowired
+    LoginService loginService;
+
+    @CrossOrigin(value = "http://localhost:3000")
     @RequestMapping("/api/login")
-    public User login(){
+    public User loggedInUser(@RequestParam("username") String username, @RequestParam("password") String password){
+        // set session varriable
+        System.out.println(loginService.findLoggedInUser(username,password));
+        return loginService.findLoggedInUser(username, password);
 
-    }
 
-
-    @RequestMapping("/api/users/{id}")
-    public User findOne(@PathVariable("id") long id) {
-        return userService.findOneUser(id);
     }
 }

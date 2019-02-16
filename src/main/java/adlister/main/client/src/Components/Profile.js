@@ -18,7 +18,7 @@ class Profile extends Component{
                 </div>
 
                 <div id={'view-window'}>
-                <Route path={'/profile/:type'} render={() => <ListingsView/>}/>
+                <Route path={'/profile/listings'} render={() => <ListingsView/>}/>
                 <Route path={'/profile/edit'} exact render={() => <ProfileView/>}/>
                 </div>
             </React.Fragment>

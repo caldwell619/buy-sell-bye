@@ -34,6 +34,7 @@ public class AdsController {
     public Ad findOneAd(@PathVariable("userId") long id) {
         return adsService.findOneAd(id);
     }
+
     // insert an ad
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/api/listings/ad")

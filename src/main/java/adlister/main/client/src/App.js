@@ -1,12 +1,13 @@
 import React, {Component, Fragment} from 'react';
-import './css/global.css';
-import axios from 'axios';
-import Landing from './Components/Landing';
-
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './store/actions';
+import './css/global.css';
+import axios from 'axios';
+import Landing from './Components/Landing';
+import Login from './Components/Login';
 import Profile from './Components/Profile';
+import Register from "./Components/Register";
 
 class App extends Component {
     constructor(){
@@ -21,7 +22,7 @@ class App extends Component {
     };
     componentDidMount(){
         // authorize user here
-        this.fetchTest();
+        // this.fetchTest();
     }
     postAd = (user_id, title, desc) => {
         fetch("http://localhost:8080/api/listings/ad", {
@@ -53,13 +54,14 @@ class App extends Component {
     };
 
   render() {
-      console.log(this.state);
     return (
         <React.Fragment>
                 <BrowserRouter>
                     <div className={"main-cont"}>
                         <Switch>
                             <Route path={"/profile/:type"} render={() => <Profile/>}/>
+                            <Route path={"/login"} render={() => <Login/>}/>
+                            <Route path={"/register"} render={() => <Register/>}/>
                             <Route path={"/"} exact/><Landing/>
                         </Switch>
 

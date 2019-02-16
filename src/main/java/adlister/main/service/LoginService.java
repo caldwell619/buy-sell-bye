@@ -1,7 +1,11 @@
 package adlister.main.service;
 import adlister.models.User;
 import adlister.util.Config;
+import adlister.util.Password;
+import adlister.util.UserUtil;
 import org.springframework.stereotype.Service;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
@@ -26,39 +30,21 @@ public class LoginService {
         }
         User targetedUser = null;
 
-        for (User searchedUser : users){
-            if (searchedUser.getUsername().equals(username) && searchedUser.getPassword().equals(password)){
+        for (User searchedUser : users) {
+            if (searchedUser.getUsername().equals(username)) {
                 targetedUser = searchedUser;
+                // evaluating improperly
+                if (Password.check(password, targetedUser.getPassword())){
+                    return targetedUser;
+                }
             }
         }
-        return targetedUser;
+        return null;
     }
 
 
     public List<User> generateUsers() {
-        users = new ArrayList<>();
-        try {
-            DriverManager.registerDriver(new Driver());
-            Config config = new Config();
-            Connection connection = DriverManager.getConnection(
-                    config.getUrl(),
-                    config.getUsername(),
-                    config.getPassword()
-            );
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("select * from users");
-            while (result.next()) {
-                users.add(new User(
-                        result.getLong("id"),
-                        result.getString("username"),
-                        result.getString("email"),
-                        result.getString("password")
-                ));
-            }
-        } catch (SQLException error){
-            System.out.print(error);
-        }
-        return users;
+        return UserUtil.generateUsers();
     }
 }
 
