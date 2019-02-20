@@ -6,7 +6,7 @@ To get started with this project, follow these steps:
 ### Installation
 - In the directory you wish this project to live, run the command `git clone git@github.com:adlistero/adlistero.git`. *note* ---> this **will** create a folder named `adlistero/` with the project inside of it
 - Navigate into the newly created directory with `cd adlistero`
-- Find the `client/` directory with `cd src/main/java/adlister/main/client/`
+- Find the `client/` directory with `cd src/client/`
 - From the `client/` directory, run `npm install` to add the necessary dependencies for this project
 ### Starting the servers
 - To start the client side server, run `npm start` from the `client/` directory.
@@ -28,7 +28,7 @@ This application uses Java, MySQL, and React / Redux. <br> Using Spring, the bac
 Ensure that you are on *your own branch* **before** making edits.<br>
 ### Sample Workflow
 - Determine your branch by executing `git branch`
-- If `master` is the result, run `git checkout -b <branchName` to create, and switch to the new branch
+- If `master` is the result, run `git checkout -b <branchName>` to create, and switch to the new branch
 - Make desired changes
 - Stage the changes by running `git add <editedFile>` or `git add .` to stage every file
 - Commit with `git commit -m "<yourCommitMessage>"`
