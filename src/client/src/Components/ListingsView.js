@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import '../css/ListingsViewStyle.css';
+
 class ListingsView extends Component{
     render(){
 

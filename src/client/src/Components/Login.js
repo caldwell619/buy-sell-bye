@@ -38,7 +38,9 @@ class Login extends Component{
       this.props.fetchUser(this.state.username, this.state.password)
     };
     tellMe = () => {
-        console.log(this.props)
+        axios.get("/api/users")
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
     };
     render(){
         return (

@@ -13,14 +13,14 @@ public class User {
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
-        this.password = Password.encrypt(password);
+        setPassword(password);
     }
 
     public User(long id, String username, String email, String password) {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.password = Password.encrypt(password);
+        this.password = password;
     }
 
     public long getId() {

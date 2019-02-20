@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 class Register extends Component{
     constructor(){
@@ -33,8 +34,14 @@ class Register extends Component{
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: `email=${this.state.email}&username=${this.state.username}&password=${this.state.password}`
-        }).then(res => console.log(res))
-            .catch(err => console.log(err))
+        }).then(res => {
+            if (res.status !== 200){
+                return <Redirect to={"/login"}/>;
+            } else {
+                // do something to let them know its taken
+            }
+        })
+            .catch(() => console.log("nope"))
     };
     render(){
         return (

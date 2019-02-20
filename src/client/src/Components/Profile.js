@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import '../css/Profile.css';
 import { Route, Link } from 'react-router-dom';
 import ListingsView from  './ListingsView';
 import ProfileView from "./ProfileView";

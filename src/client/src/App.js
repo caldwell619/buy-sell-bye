@@ -2,12 +2,12 @@ import React, {Component, Fragment} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './store/actions';
-import './css/global.css';
 import axios from 'axios';
 import Landing from './Components/Landing';
 import Login from './Components/Login';
 import Profile from './Components/Profile';
 import Register from "./Components/Register";
+import Header from "./Components/Header/Header";
 
 class App extends Component {
     constructor(){
@@ -22,6 +22,8 @@ class App extends Component {
     };
     componentDidMount(){
         // authorize user here
+        axios.get("/api/check-login").then(res => console.log(res))
+            .catch(err => console.log(err))
         // this.fetchTest();
     }
     postAd = (user_id, title, desc) => {
@@ -44,7 +46,7 @@ class App extends Component {
             .catch(err => console.log(err))
     };
     axiosGetAd = () => {
-        axios.get("/api/listings").then(res => console.log(res))
+        axios.get("/api/check-login").then(res => console.log(res))
             .catch(err => console.log(err))
     };
     titleChangeHandler = event => {
@@ -58,6 +60,7 @@ class App extends Component {
         <React.Fragment>
                 <BrowserRouter>
                     <div className={"main-cont"}>
+                    <Header/>
                         <Switch>
                             <Route path={"/profile/:type"} render={() => <Profile/>}/>
                             <Route path={"/login"} render={() => <Login/>}/>

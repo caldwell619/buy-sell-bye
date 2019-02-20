@@ -1,6 +1,7 @@
 package adlister.main;
 
 import adlister.main.service.RegisterService;
+import adlister.util.Password;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
