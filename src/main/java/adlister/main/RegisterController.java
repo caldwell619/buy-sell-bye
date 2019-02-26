@@ -1,7 +1,7 @@
 package adlister.main;
 
 import adlister.main.service.RegisterService;
-import adlister.util.Password;
+import adlister.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,8 @@ public class RegisterController {
 
     @CrossOrigin(value = "http://localhost:3000")
     @RequestMapping("/api/register")
-    public void loggedInUser(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email){
+    public String createUser(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("email") String email){
         registerService.createUser(username, password, email);
+        return "done";
     }
 }

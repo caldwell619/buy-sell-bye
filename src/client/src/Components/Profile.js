@@ -2,27 +2,22 @@ import React, {Component} from "react";
 import { Route, Link } from 'react-router-dom';
 import ListingsView from  './ListingsView';
 import ProfileView from "./ProfileView";
+import * as actions from '../store/actions';
+import { connect } from 'react-redux';
+
 class Profile extends Component{
+    componentDidMount(){
+        console.log("profile mount");
+        this.props.fetchUser()
+    }
     render(){
         return (
             <React.Fragment>
-            <div id={'header'}>
-                Welcome back!<hr/>
-                <button><p className={'link'}>Home</p></button><button><p className={'link'}>Ads</p></button><button><p className={'link'}>Contact</p></button>
-            </div>
 
-                <div id={'view-buttons'}>
-                <Link to={"/profile/listings"}><button className={'profile-button'}>Listings</button></Link>
-                <Link to={"/profile/edit"}><button className={'profile-button'}>Edit Profile</button></Link>
-                </div>
-
-                <div id={'view-window'}>
-                <Route path={'/profile/listings'} render={() => <ListingsView/>}/>
-                <Route path={'/profile/edit'} exact render={() => <ProfileView/>}/>
-                </div>
             </React.Fragment>
         )
     }
 }
 
-export default Profile;
+
+export default connect(null, actions)(Profile);

@@ -1,43 +1,22 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import * as actions from '../store/actions';
+import { connect } from 'react-redux';
 
 class Landing extends Component {
+    componentDidMount(){
+        console.log("landing mount");
+        this.props.fetchUser()
+    }
     render() {
         return (
             <React.Fragment>
-                <input id="toggle" type="checkbox"/>
-                <label className="toggle-container" htmlFor="toggle">
-                    <span className="button button-toggle"></span>
-                </label>
-
-                <div className="device">
-                    <div className="container">
-                        <button id="burger" className="open-main-nav" >
-                            <span className="burger"></span>
-                            <span className="burger-text">Menu</span>
-                        </button>
-                        <nav className="main-nav" id="main-nav">
-                            <ul>
-                                <li><Link to="/profile/listings">Profile</Link></li>
-                                <li><Link to="/postings">Postings </Link></li>
-                                <li><Link to="/contact">Contact </Link></li>
-                            </ul>
-                        </nav>
-                    </div>
+                <div className="landing-cont">
+                    <h1>Welcome to Buy Sell, Bye!</h1>
                 </div>
-                <div className="hero-image">
-                    <div className="hero-text">
-                        <h1>Buy..Sell...Bye</h1>
-                        <p id="bio">Consider this your last stop.
-                            Stop wasting your time at the store when
-                            when we have everything you need.</p>
-                    </div>
-                </div>
-
-
             </React.Fragment>
         )
     }
 }
 
-export default Landing;
+export default connect(null, actions)(Landing);

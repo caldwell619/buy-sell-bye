@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 
 class Register extends Component{
     constructor(){
@@ -7,7 +8,8 @@ class Register extends Component{
         this.state = {
             username: "",
             password: "",
-            email: ""
+            email: "",
+            disabledButton: false
         }
     }
 
@@ -28,20 +30,18 @@ class Register extends Component{
     };
 
     createUser = () => {
-        fetch("http://localhost:8080/api/register", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `email=${this.state.email}&username=${this.state.username}&password=${this.state.password}`
-        }).then(res => {
-            if (res.status !== 200){
-                return <Redirect to={"/login"}/>;
-            } else {
-                // do something to let them know its taken
-            }
+        this.setState({disabledButton: true});
+        axios.post("http://localhost:8080/api/register", `email=${this.state.email}&username=${this.state.username}&password=${this.state.password}`)
+        .then(res => {
+            this.setState({disabledButton: false});
+            console.log(res);
+            return <Redirect to={"/login"}/>
         })
-            .catch(() => console.log("nope"))
+            // error handling to include username taken
+            .catch(err => {
+                this.setState({disabledButton: false});
+                console.log(err)
+            })
     };
     render(){
         return (
@@ -72,7 +72,7 @@ class Register extends Component{
                         </div>
                     </div>
                     <div className="register-submit-cont">
-                        <button id={"register-button"} onClick={this.createUser}>Login</button>
+                        <button id={"register-button"} onClick={this.createUser} disabled={this.state.disabledButton}>Sign Up!</button>
                     </div>
                 </div>
             </div>

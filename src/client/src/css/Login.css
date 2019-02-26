@@ -1,0 +1,34 @@
+#login-butt {
+    padding: 15px;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 5px;
+}
+.username-cont,
+.pass-cont {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 5%;
+}
+
+.username-cont input,
+.pass-cont input {
+    width: 50%;
+    padding: 5%;
+    margin-left: 50px;
+    background-color: snow;
+    border-radius: 10px;
+    border: none;
+
+}
+.user-label-cont,
+.pass-label-cont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.submit-cont {
+    display: flex;
+    justify-content: center;
+}

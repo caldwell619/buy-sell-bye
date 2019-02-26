@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import '../css/Login.css';
 
 class Login extends Component{
     constructor(){
         super();
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            redirect: false
         }
+    }
+    componentDidMount(){
+        console.log("login mount");
+        this.props.fetchUser()
     }
 
     usernameHandler = event => {
@@ -23,26 +30,22 @@ class Login extends Component{
         })
     };
 
-    getUser = () => {
-        fetch("http://localhost:8080/api/login", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `username=${this.state.username}&password=${this.state.password}`
-        }).then(res => console.log(res))
-            .catch(err => console.log(err))
-    };
     login = () => {
-      this.props.fetchUser(this.state.username, this.state.password)
-    };
-    tellMe = () => {
-        axios.get("/api/users")
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+        // sets the backend session scope to log in the user
+        axios.post("/api/login-user",
+            `username=${this.state.username}&password=${this.state.password}`)
+            .then(() => {
+                this.setState({redirect: true})
+            })
+            .catch(() => {
+                // eventual pop up saying nope
+                alert("invalid entry")
+            });
     };
     render(){
+        if (this.state.redirect) {
+            return <Redirect to="/profile"/>
+        }
         return (
             <div className="container">
                 <div className="log-in-cont">
@@ -51,7 +54,7 @@ class Login extends Component{
                             <label htmlFor="login-username">Username:</label>
                         </div>
                         <div className="user-input-cont">
-                            <input type="text" name="username" id={"login-username"} onChange={this.usernameHandler} value={this.state.username} required/>
+                            <input type="text" name="username" id={"login-username"} placeholder={"username"} onChange={this.usernameHandler} value={this.state.username} required/>
                         </div>
                     </div>
                     <div className="pass-cont">
@@ -59,12 +62,11 @@ class Login extends Component{
                             <label htmlFor="login-password">Password:</label>
                         </div>
                         <div className="pass-input-cont">
-                            <input type="password" name="password" id={"login-password"} onChange={this.passwordHandler} value={this.state.password} required/>
+                            <input type="password" name="password" id={"login-password"} placeholder={"password"} onChange={this.passwordHandler} value={this.state.password} required/>
                         </div>
                     </div>
                     <div className="submit-cont">
-                        <button id={"login-button"} onClick={this.tellMe}>Login normal</button>
-                        <button id={"login-but"} onClick={this.login}>Login axios</button>
+                        <button id={"login-butt"} onClick={this.login}>Login</button>
                     </div>
                 </div>
             </div>
