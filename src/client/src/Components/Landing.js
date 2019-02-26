@@ -8,6 +8,7 @@ class Landing extends Component {
         console.log("landing mount");
         this.props.fetchUser()
     }
+    // test
     render() {
         return (
             <React.Fragment>
