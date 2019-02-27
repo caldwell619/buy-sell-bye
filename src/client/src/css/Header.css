@@ -1,0 +1,72 @@
+:root {
+    --deep-blue: #0F2A3B;
+    --blue-grey: #34414A;
+    --medium-green: #78A17F;
+    --cool-green: #B2C994;
+    --cool-yellow: #FBF8AF
+}
+
+/************************************************
+Sm-Nav
+************************************************/
+.sm-nav-cont {
+    height: 60vh;
+    width: 0;
+    position: fixed;
+    background-color: var(--deep-blue);
+    z-index: 99;
+    top: -10px;
+    left: -100px;
+    transition: all 0.7s;
+    border-radius: 5px;
+    opacity: 0;
+}
+
+/******************
+Header
+*******************/
+.menu-header-cont {
+    text-align: center;
+}
+.menu-header-cont h2 {
+    color: #afb2b1;
+}
+.nav-link-cont {
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav-link-cont li {
+    margin: 35px 0;
+    font-size: 22px;
+    color: var(--cool-green);
+}
+.nav-link-cont a {
+    color: var(--cool-green);
+}
+
+
+.show-menu {
+    left: -10px;
+    width: 60vw;
+    opacity: .95;
+}
+.auth-cont {
+    height: 80vh;
+}
+
+
+
+/************************************************
+Media Queries
+************************************************/
+@media only screen and (min-width: 480px){
+    .mobile {
+        display: none;
+    }
+    .nav-row {
+        display: flex;
+        justify-content: space-between;
+    }
+}

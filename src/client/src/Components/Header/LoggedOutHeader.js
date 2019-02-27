@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import SmLoggedOut from './SmLoggedOut';
+import MdLoggedOut from './MdLoggedOut';
 
-class LoggedOutHeader extends Component{
-    render(){
-        return (
-            <div className="header-container">
-                <div className="row">
-                    <ul>
-                        <li><Link to={"/register"}>Register</Link></li>
-                        <li><Link to={"/login"}>Login</Link></li>
-                    </ul>
-                </div>
-            </div>
-        )
-    }
-}
+const LoggedOutHeader = () => {
+    return (
+        <React.Fragment>
+            <SmLoggedOut/>
+            <MdLoggedOut/>
+        </React.Fragment>
+    )
+};
 export default LoggedOutHeader;

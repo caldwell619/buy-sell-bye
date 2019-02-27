@@ -4,11 +4,7 @@ import * as actions from '../store/actions';
 import { connect } from 'react-redux';
 
 class Landing extends Component {
-    componentDidMount(){
-        console.log("landing mount");
-        this.props.fetchUser()
-    }
-    // test
+
     render() {
         return (
             <React.Fragment>

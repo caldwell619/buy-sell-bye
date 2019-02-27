@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import LoggedInHeader from './LoggedInHeader';
 import LoggedOutHeader from './LoggedOutHeader';
 import * as actions from '../../store/actions';
+import '../../css/Header.css';
 
 class Header extends Component{
 
