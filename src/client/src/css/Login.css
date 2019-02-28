@@ -1,34 +1,24 @@
-#login-butt {
-    padding: 15px;
-    background-color: cornflowerblue;
-    color: white;
-    border-radius: 5px;
-}
-.username-cont,
-.pass-cont {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 5%;
-}
-
-.username-cont input,
-.pass-cont input {
-    width: 50%;
-    padding: 5%;
-    margin-left: 50px;
-    background-color: snow;
-    border-radius: 10px;
-    border: none;
-
-}
-.user-label-cont,
-.pass-label-cont {
+.login-cont {
+    height: 50vh;
     display: flex;
     align-items: center;
-    justify-content: center;
 }
-.submit-cont {
-    display: flex;
-    justify-content: center;
+.form-fields {
+    text-align: center;
+}
+.btn-cont {
+    margin-top: 10vh;
+    text-align: center;
+}
+.btn-cont button {
+    margin-left: 20px;
+}
+.login-header {
+    margin-top: 10px !important;
+}
+.login-header:after {
+    content: "";
+    color: #0F2A3B;
+    width: 100px;
+    height: 10px;
 }

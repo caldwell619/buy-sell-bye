@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as actions from '../../store/actions'
 import Link from '@material-ui/core/Link'
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -8,6 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import VideoLabel from '@material-ui/icons/VideoLabel';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import CardHeader from '@material-ui/core/CardHeader';
 import Person from '@material-ui/icons/Person';
@@ -26,6 +28,10 @@ class LoggedOutMenu extends Component{
             <div className={"nav-items-test"}>
                 <CardHeader title={"Buy, Sell, Bye"}/>
                 <List>
+                    <ListItem button>
+                        <ListItemIcon>{<VideoLabel/>}</ListItemIcon>
+                        <Link component={RouterLink} to={"/"}><ListItemText primary={'Home'}/></Link>
+                    </ListItem>
                     <ListSubheader>Ads</ListSubheader>
                     <ListItem button>
                         <ListItemIcon>{<LibraryBooks/>}</ListItemIcon>
@@ -48,7 +54,16 @@ class LoggedOutMenu extends Component{
 
 
         return (
-                <Drawer variant={"temporary"} open={this.props.menuShown} children={navItems}/>
+                <Drawer variant={"temporary"} open={this.props.menuShown} onClose={this.props.closeMenu.bind(this)}>
+                    <div className={"close-div"}
+                    tabIndex={0}
+                    role="button"
+                    onClick={this.props.closeMenu}
+                    onKeyDown={this.props.closeMenu}
+                    onScrollCapture={this.props.closeMenu}>
+                    {navItems}
+                    </div>
+                </Drawer>
         )
     }
 }
@@ -57,7 +72,7 @@ const mapStateToProps = state => {
         menuShown: state.menuShown
     }
 };
-export default connect(mapStateToProps)(LoggedOutMenu);
+export default connect(mapStateToProps, actions)(LoggedOutMenu);
 
 
 

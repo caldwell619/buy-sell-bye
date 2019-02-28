@@ -12,7 +12,6 @@ import com.mysql.cj.jdbc.Driver;
 public class LoginService {
     Config config;
     Connection connection;
-    List<User> users;
 
     public User findByUsername(String username) {
         try {
@@ -44,7 +43,9 @@ public class LoginService {
                 rs.getLong("id"),
                 rs.getString("username"),
                 rs.getString("email"),
-                rs.getString("password")
+                rs.getString("password"),
+                rs.getString("first_name"),
+                rs.getString("last_name")
         );
     }
     public static List<User> generateUsers() {
@@ -64,7 +65,9 @@ public class LoginService {
                         result.getLong("id"),
                         result.getString("username"),
                         result.getString("email"),
-                        result.getString("password")
+                        result.getString("password"),
+                        result.getString("first_name"),
+                        result.getString("last_name")
                 ));
             }
         } catch (SQLException error){

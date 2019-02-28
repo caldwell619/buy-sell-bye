@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LoggedInHeader from './LoggedInHeader';
-import LoggedOutHeader from './LoggedOutHeader';
-import * as actions from '../../store/actions';
-import '../../css/Header.css';
+import LoggedOutMenu from './LoggedOutMenu';
+import LoggedInMenu from './LoggedInMenu';
 
 class Header extends Component{
 
@@ -12,9 +10,9 @@ class Header extends Component{
             case null:
                 return;
             case false:
-                return <LoggedOutHeader/>;
+                return <LoggedOutMenu/>;
             default:
-                return <LoggedInHeader/>;
+                return <LoggedInMenu/>;
         }
     };
     render(){
@@ -30,4 +28,4 @@ const mapStateToProps = state => {
         user: state.user
     }
 };
-export default connect(mapStateToProps, actions)(Header);
+export default connect(mapStateToProps)(Header);

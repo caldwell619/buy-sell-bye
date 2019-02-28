@@ -20,7 +20,16 @@ a {
 * {
     box-sizing: border-box;
 }
-
+body {
+    margin: 0;
+}
+:root {
+    --deep-blue: #0F2A3B;
+    --blue-gray: #34414A;
+    --medium-green: #78A17F;
+    --cool-green: #B2C994;
+    --soft-yello: #FBF8AF;
+}
 
 /************************************************
 menu
@@ -45,7 +54,8 @@ Content
     top: 0;
     bottom: 0;
     z-index: 100;
-    padding: 0 10%;
+    padding: 0 4%;
+    margin-top: 10vh;
 }
 .blur-content {
     z-index: 1;

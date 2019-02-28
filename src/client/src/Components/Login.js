@@ -1,82 +1,109 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../store/actions';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+import * as actions from '../store/actions';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import axios from "axios";
 import '../css/Login.css';
+import Typography from "@material-ui/core/Typography/Typography";
 
-class Login extends Component{
-    constructor(){
-        super();
-        this.state = {
-            username: "",
-            password: "",
-            redirect: false
-        }
-    }
-    componentDidMount(){
+class Login extends Component {
+    state = {
+        username: "",
+        password: "",
+        redirect: false,
+        error: false,
+        disabled: false
+
+    };
+
+    componentDidMount() {
         console.log("login mount");
         this.props.fetchUser()
     }
 
-    usernameHandler = event => {
-        this.setState({
-            username: event.target.value
-        })
-    };
-    passwordHandler = event => {
-        this.setState({
-            password: event.target.value
-        })
-    };
-
     login = () => {
+        this.setState({
+            disabled: true
+        });
         // sets the backend session scope to log in the user
         axios.post("/api/login-user",
             `username=${this.state.username}&password=${this.state.password}`)
             .then(() => {
-                this.setState({redirect: true})
+                this.setState({
+                    redirect: true,
+                    disabled: false
+                })
             })
             .catch(() => {
                 // eventual pop up saying nope
-                alert("invalid entry")
+                this.setState({
+                    error: true,
+                    disabled: false
+                })
             });
     };
-    render(){
+
+    inputHandler = type => event => {
+        this.setState({
+            [type]: event.target.value
+        })
+    };
+
+    render() {
         if (this.state.redirect) {
-            return <Redirect to="/profile"/>
+            return (<Redirect to={"/profile"}/>)
         }
         return (
-            <div className="container">
-                <div className="log-in-cont">
-                    <div className="username-cont">
-                        <div className="user-label-cont">
-                            <label htmlFor="login-username">Username:</label>
-                        </div>
-                        <div className="user-input-cont">
-                            <input type="text" name="username" id={"login-username"} placeholder={"username"} onChange={this.usernameHandler} value={this.state.username} required/>
-                        </div>
+            <React.Fragment>
+                <Typography component="h3" variant="h3" gutterBottom className={"login-header"}>
+                    Login
+                </Typography>
+            <div className="login-cont">
+                <div>
+                    <div className="form-fields">
+                        <TextField
+                            error={this.state.error}
+                            id={`outlined-username`}
+                            label="Username"
+                            value={this.state.username}
+                            onChange={this.inputHandler('username')}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <TextField
+                            error={this.state.error}
+                            id={`outlined-password`}
+                            label="Password"
+                            type="password"
+                            value={this.state.password}
+                            onChange={this.inputHandler('password')}
+                            margin="normal"
+                            variant="outlined"
+                        />
                     </div>
-                    <div className="pass-cont">
-                        <div className="pass-label-cont">
-                            <label htmlFor="login-password">Password:</label>
-                        </div>
-                        <div className="pass-input-cont">
-                            <input type="password" name="password" id={"login-password"} placeholder={"password"} onChange={this.passwordHandler} value={this.state.password} required/>
-                        </div>
+                    <div className="btn-cont">
+                        <Button variant="contained" color="primary"><div onClick={this.login}>Login</div></Button>
+                        <Button variant="outlined">Forgot Password</Button>
                     </div>
-                    <div className="submit-cont">
-                        <button id={"login-butt"} onClick={this.login}>Login</button>
-                    </div>
+
                 </div>
             </div>
+            </React.Fragment>
+
         )
     }
 }
 
+// <Route path={"/ads/view"} render={() => <ListingsView/>}/>
+
 const mapStateToProps = state => {
     return {
-        ...state
+        user: state.user,
+        menuShown: state.menuShown
     }
 };
 export default connect(mapStateToProps, actions)(Login);
+
+

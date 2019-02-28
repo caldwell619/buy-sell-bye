@@ -1,26 +1,17 @@
 package adlister.main.service;
-
 import adlister.util.Config;
-import adlister.util.Password;
 import org.springframework.stereotype.Service;
-
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-
 import com.mysql.cj.jdbc.Driver;
 import adlister.models.User;
-
-import javax.swing.plaf.nimbus.State;
-
-import adlister.main.service.LoginService;
 
 @Service
 public class RegisterService {
     List<User> users;
 
-    public void createUser(String username, String password, String email) {
-        User newUser = new User(username, email, password);
+    public void createUser(String username, String password, String email, String firstName, String lastName) {
+        User newUser = new User(username, email, password, firstName, lastName);
         Boolean errorPresent = false;
         if (newUser.getUsername().isEmpty() ||
             newUser.getPassword().isEmpty() ||
@@ -47,13 +38,15 @@ public class RegisterService {
                 );
 
                 // Preparing the statement
-                String sql = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
+                String sql = "INSERT INTO users(username, email, password, last_name, first_name) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
                 // setting the prepared statement values to the ones accepted by the insert()
                 stmt.setString(1, newUser.getUsername());
                 stmt.setString(2, newUser.getEmail());
                 stmt.setString(3, newUser.getPassword());
+                stmt.setString(4, newUser.getLastName());
+                stmt.setString(5, newUser.getFirstName());
 
                 stmt.executeUpdate();
             } catch (SQLException error) {

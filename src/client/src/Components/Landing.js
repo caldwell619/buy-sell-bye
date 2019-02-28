@@ -1,15 +1,20 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
 import * as actions from '../store/actions';
 import { connect } from 'react-redux';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 class Landing extends Component {
-
+    componentDidMount(){
+        this.props.fetchUser()
+    }
     render() {
         return (
             <React.Fragment>
                 <div className="landing-cont">
-                    <h1>Welcome to Buy Sell, Bye!</h1>
+                    <Typography component="h4" variant="h4" gutterBottom className={"landing-header"}>
+                        Welcome to Buy, Sell, Bye!
+                    </Typography>
                 </div>
             </React.Fragment>
         )
