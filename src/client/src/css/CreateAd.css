@@ -5,10 +5,21 @@
 .input-field-cont {
     height: 75vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 .create-btn-cont {
     margin-top: 15px;
     text-align: right;
+}
+.another-input-cont {
+    width: 80%;
+}
+.title-cont,
+.price-cont,
+.description-cont {
+    margin: 5vh 0;
+}
+.title-cont {
+    margin-top: 1vh;
 }

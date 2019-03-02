@@ -19,26 +19,27 @@ public class AdsController {
     AdsService adsService;
 
     // all ads of every user
-    @RequestMapping("/api/listings")
+    @RequestMapping("/api/ads")
     public List<Ad> all(){
         return adsService.all();
     }
 
     // all ads from a certain user
-    @RequestMapping("/api/ads/{id}")
-    public List<Ad> userAds(@PathVariable("id") long id) {
+    @RequestMapping("/api/user-ads")
+    public List<Ad> userAds(@RequestParam("id") long id) {
+        System.out.println(id);
         return adsService.usersAds(id);
     }
 
     // one single ad from one user
-    @RequestMapping("/api/ads/{userId}/{adId}")
-    public Ad findOneAd(@PathVariable("userId") long id) {
+    @RequestMapping("/api/one-ad")
+    public Ad findOneAd(@RequestParam("ad_id") long id) {
         return adsService.findOneAd(id);
     }
 
     // insert an ad JSON formatted
     @PostMapping("/api/create-ad")
     public void insertAd(@RequestBody Ad ad){
-        System.out.println(ad.getPrice());
+        adsService.insertAd(ad);
     }
 }

@@ -55,6 +55,9 @@ class Login extends Component {
         if (this.state.redirect) {
             return (<Redirect to={"/profile"}/>)
         }
+        if (this.props.user !== false){
+            return <Redirect to={"/profile"}/>
+        } 
         let style = "";
         let progressStyle = "";
         if (this.state.disabled){

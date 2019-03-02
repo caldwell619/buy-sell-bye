@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions';
-import Menu from '@material-ui/icons/Menu';
 import '../../css/TopNavBar.css';
 
 const TopNavBar = (props) => {

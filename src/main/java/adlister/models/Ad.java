@@ -16,11 +16,12 @@ public class Ad {
         this.price = price;
     }
 
-    public Ad(long id, long userId, String title, String description) {
+    public Ad(long id, long userId, String title, String description, String price) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
+        this.price = price;
     }
 
 

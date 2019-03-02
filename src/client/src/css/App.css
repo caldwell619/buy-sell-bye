@@ -47,7 +47,7 @@ menu
 Content
 ************************************************/
 .main {
-    transition: all 0.3s;
+    transition: all 0.2s ease-in;
     position: absolute;
     left: 0;
     right: 0;

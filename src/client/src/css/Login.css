@@ -20,12 +20,6 @@
 .login-header {
     margin-top: 10px !important;
 }
-.login-header:after {
-    content: "";
-    color: #0F2A3B;
-    width: 100px;
-    height: 10px;
-}
 .progress {
     opacity: 0;
     transition: all 0.2s;

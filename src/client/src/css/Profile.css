@@ -1,36 +1,7 @@
-
-.header-cont {
-    height: 30vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.prof-all-btn {
+    background-color: var(--medium-green) !important;
 }
-.btn {
-    border: 1px solid #bfbfbf;
-    padding: 9px;
-    background-color: transparent;
-    border-radius: 5px;
-    transition: all 0.5s;
-    cursor: pointer;
-}
-.btn:active {
-    opacity: .8;
-    transform: scale(.9);
-}
-.btn:focus {
-    outline: 0;
-}
-#show-ads-btn {
-    background-color: var(--medium-green);
-    color: #ffffff;
-}
-#new-ad-btn {
-    background-color: var(--cool-green);
-    color: white;
-}
-.action-cont {
-    margin-top: 3vh;
-}
-.action-cont button {
-    margin-right: 10px;
+.prof-my-btn {
+    background-color: var(--cool-green) !important;
+    color: #ffffff !important;
 }

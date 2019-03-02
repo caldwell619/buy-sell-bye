@@ -60,3 +60,19 @@
 .user-ads-header {
     margin-top: 5vh !important;
 }
+.search-hidden {
+    opacity: 0;
+}
+.loading {
+    filter: blur(2px);
+}
+.topper {
+    display: flex;
+    justify-content: space-between;
+}
+.topper button {
+    padding-top: 0 !important;
+}
+.spinner-loading {
+    opacity: 1;
+}

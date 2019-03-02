@@ -19,10 +19,6 @@ import LibraryBooks from '@material-ui/icons/LibraryBooks';
 
 
 class LoggedOutMenu extends Component{
-    constructor(props){
-        super(props)
-    }
-
     render(){
         const navItems = (
             <div className={"nav-items-test"}>

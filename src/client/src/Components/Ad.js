@@ -8,12 +8,22 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import '../css/AllAds.css';
+import Tooltip from "@material-ui/core/Tooltip/Tooltip";
+import IconButton from "@material-ui/core/IconButton/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 class Landing extends Component {
-    constructor(props){
-        super(props)
-    }
     render() {
+        let deleteBtn = null;
+        if (this.props.userAds){
+            deleteBtn = (
+                <Tooltip title="Delete">
+                    <IconButton aria-label="Delete">
+                        <DeleteIcon />
+                    </IconButton>
+                </Tooltip>
+            )
+        }
         return (
             <Card className={"ind-ad-cont"}>
                 <CardActionArea>
@@ -22,11 +32,15 @@ class Landing extends Component {
                         title="Ad thingy"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {this.props.title}
-                        </Typography>
+                        <div className="topper">
+                            <Typography gutterBottom variant="h5" component="h2">
+                                {this.props.title}
+                            </Typography>
+                            {deleteBtn}
+                        </div>
+
                         <Typography component="p">
-                            {this.props.price}
+                            {`$${this.props.price}`}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
@@ -34,7 +48,7 @@ class Landing extends Component {
                     <Button size="small" color="secondary">
                         Share
                     </Button>
-                    <Link to={`/ads/show/${this.props.id}`}><Button size="small" color="default">
+                    <Link to={`/ads/view/${this.props.id}`}><Button size="small" color="default">
                         Show more
                     </Button></Link>
                 </CardActions>

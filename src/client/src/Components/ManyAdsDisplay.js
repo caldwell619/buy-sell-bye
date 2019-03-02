@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import * as actions from '../store/actions';
 import {connect} from 'react-redux';
 import Paper from '@material-ui/core/Paper';
@@ -12,26 +11,28 @@ import Ad from './Ad';
 import '../css/AllAds.css';
 
 class ManyAdsDisplay extends Component {
-    constructor(props){
-        super(props)
-    }
+    state = {
+        search: ""
+    };
     searchHandler = event => {
-        this.props.seachHandler(event)
+        this.setState({
+            search: event.target.value
+        })
     };
 
     render() {
         let adsToShow = this.props.ads.filter(ad => {
-            if (ad.title.toLowerCase().includes(this.props.search)) {
-                return ad
-            }
+           return ad.title.toLowerCase().includes(this.state.search)
         });
+
+
         return (
             <React.Fragment>
                 <div className="ads-cont">
                     <Paper elevation={1} className={"search-cont"}>
                         <input type="text" id={"search"}
-                               value={this.props.search}
-                               onChange={this.props.searchHandler}/>
+                               value={this.state.search}
+                               onChange={this.searchHandler}/>
                         <IconButton aria-label="Search">
                             <SearchIcon/>
                         </IconButton>
@@ -39,11 +40,11 @@ class ManyAdsDisplay extends Component {
                     </Paper>
                 </div>
                 <div className="ads-cont">
-                    {adsToShow.map(ad => <Ad title={ad.title} description={ad.description} price={ad.price} id={ad.id}
-                                             key={ad.id}/>)}
+                    {adsToShow.map(ad => (<Ad title={ad.title} description={ad.description} price={ad.price} id={ad.id}
+                                             key={ad.id} userAds={this.props.userAds}/>))}
                 </div>
                 <a href={"#top"}>
-                    <Fab variant="extended" aria-label="Delete" className={`back-to-search-btn`}>
+                    <Fab variant="extended" aria-label="Delete" className={`back-to-search-btn ${this.props.searchHidden}`}>
                         <NavigationIcon/>
                         Search
                     </Fab>

@@ -45,19 +45,22 @@ class LoggedInMenu extends Component{
         if (this.state.redirect){
             return ( <Redirect to={"/"}/>)
         }
+        let username = "";
+        if (this.props.user !== false){
+            username = this.props.user.username
+        }
         const navItems = (
             <div className={"nav-items-test"}>
                 <CardHeader title={"Buy, Sell, Bye"}/>
                 <List>
                     <ListSubheader>Ads</ListSubheader>
-                    {[['Ads', '/ads'], ['Create Ad', '/ads/create'], ['Show My Ads', '/ads/username']]. map(text => (
-                        <ListItem button>
+                    {[['Ads', '/ads'], ['Create Ad', '/ads/create'], ['Show My Ads', `/ads/show/${username}`]].map((text, index) => (
+                        <ListItem button key={index}>
                             <ListItemIcon>{text[0] === "Ads" ? <LibraryBooks/> : this.determineIcon(text[0]) }</ListItemIcon>
                             <Link component={RouterLink} to={text[1]}><ListItemText primary={text[0]}/></Link>
                         </ListItem>
                         )
                     )}
-
                 </List>
                 <Divider/>
                 <List>
@@ -96,7 +99,8 @@ class LoggedInMenu extends Component{
 }
 const mapStateToProps = state => {
     return {
-        menuShown: state.menuShown
+        menuShown: state.menuShown,
+        user: state.user
     }
 };
 export default connect(mapStateToProps, actions)(LoggedInMenu);
