@@ -1,80 +1,95 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import { connect } from 'react-redux';
 import axios from 'axios';
-import '../css/Register.css';
+import '../css/CreateAd.css';
+import Button from "@material-ui/core/Button/Button";
 
-class Register extends Component{
-    constructor(){
-        super();
-        this.state = {
-            title: "",
-            description: "",
-            categories: "",
-            disabledButton: false,
-            redirect: false
-        }
-    }
-
-    inputHandler = (type, event) => {
-        let stateProp = "";
-        switch(type){
-            case "title":
-                stateProp = "title";
-                break;
-            case "description":
-                stateProp = "description";
-                break;
-            case "categories":
-                stateProp = "categories";
-                break;
-            default: return;
-        }
-        this.setState({
-            [stateProp]: event.target.value
-        })
+class CreateAd extends Component {
+    state = {
+        title: "",
+        description: "",
+        categories: "",
+        disabledButton: false,
+        redirect: false
     };
 
-    render(){
-        if (this.state.redirect){
+    inputHandler = type => event => {
+        this.setState({
+            [type]: event.target.value
+        })
+    };
+    createAd = () => {
+        axios.post("/api/create-ad", {
+            userId: this.props.user.id,
+            title: this.state.title,
+            description: this.state.description,
+            price: this.state.price
+        }).then(() => {this.setState({redirect: true})})
+            .catch(error => console.log(error))
+    };
+
+    render() {
+        if (this.state.redirect) {
             return <Redirect to={"/ads"}/>
         }
         return (
-            <div className="ad-container">
-                <div className="header-cont">
-                    <h1>Sell your cool stuff</h1>
+            <div className="create-ad-cont">
+                <Typography component="h4" variant="h4" gutterBottom className={"create-ad-header"}>
+                    Create a sweet ad!
+                </Typography>
+                <div className="input-field-cont">
+                    <div className="another-input-cont">
+                        <div className="title-cont">
+                            <TextField
+                                id="outlined-with-placeholder"
+                                label="Title"
+                                placeholder="Title of your sweet ad"
+                                margin="normal"
+                                variant="outlined"
+                                value={this.state.title}
+                                onChange={this.inputHandler('title')}
+                            />
+                        </div>
+                        <div className="price-cont">
+                            <TextField
+                                id="outlined-with-placeholder"
+                                label="Price"
+                                placeholder="Price of your sweet ad"
+                                margin="normal"
+                                variant="outlined"
+                                value={this.state.price}
+                                onChange={this.inputHandler('price')}
+                            />
+                        </div>
+                        <div className="description-cont">
+                            <TextField
+                                id="outlined-textarea"
+                                label="Description"
+                                placeholder="Tell the world why your product is worth buying"
+                                multiline
+                                margin="normal"
+                                variant="outlined"
+                                value={this.state.description}
+                                onChange={this.inputHandler('description')}
+                            />
+                        </div>
+                        <div className="create-btn-cont">
+                            <Button variant="contained" color="primary"><div onClick={this.createAd}>Sell Stuff!</div></Button>
+                        </div>
+                    </div>
                 </div>
-                <div className="log-in-cont">
-                    <div className="register-cont">
-                        <div className="description-label-cont">
-                            <label htmlFor="ad-title">Title:</label>
-                        </div>
-                        <div className="ad-input-cont">
-                            <input type="text" name="title" id={"title"} minLength={"4"} onChange={this.inputHandler.bind(this, "title")} value={this.state.title} required/>
-                        </div>
-                    </div>
-                    <div className="register-cont">
-                        <div className="description-label-cont">
-                            <label htmlFor="ad-description">Description:</label>
-                        </div>
-                        <div className="ad-input-cont">
-                            <textarea name="description" id="ad-description" value={this.state.description} onChange={this.inputHandler.bind(this, "description")}/>
-                        </div>
-                    </div>
-                    <div className="register-pass-cont register-cont">
-                        <div className="register-pass-label-cont">
-                            <label htmlFor="register-password">Categories: </label>
-                        </div>
-                        <div className="register-pass-input-cont">
-                            <input type="password" name="register-password" id={"register-password"} minLength={"6"} onChange={this.inputHandler.bind(this, "description")} value={this.state.password} required/>
-                        </div>
-                    </div>
-                    <div className="register-submit-cont">
-                        <button className={"btn"} id={"register-button"} disabled={this.state.disabledButton}>Create the ad</button>
-                    </div>
-                </div>
+
             </div>
         )
     }
 }
 
-export default Register;
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+};
+export default connect(mapStateToProps)(CreateAd);

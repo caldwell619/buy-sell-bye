@@ -10,9 +10,10 @@ import CreateAd from './Components/CreateAd';
 import Header from "./Components/Header/Header";
 import TopNavBar from './Components/Header/TopNavBar';
 import Login from "./Components/Login";
+import IndividualAd from "./Components/IndividualAd";
+import UserAds from "./Components/UserAds";
 
 import './css/App.css';
-import IndividualAd from "./Components/IndividualAd";
 
 class App extends Component {
     componentDidMount(){
@@ -25,10 +26,10 @@ class App extends Component {
             blurContent = "blur-content"
         }
     return (
-        <React.Fragment>
 
                 <BrowserRouter>
-                    <div className={"main-cont"}>
+                    <React.Fragment>
+                    <div className={"main-cont"} id={"top"}>
                         <Header/>
                         <TopNavBar/>
                         <main className={`main ${blurContent}`} onClick={this.props.closeMenu}>
@@ -37,14 +38,15 @@ class App extends Component {
                                 <Route path={"/login"} render={() => <Login/>}/>
                                 <Route path={"/register"} render={() => <Register/>}/>
                                 <Route path={"/ads"} exact render={() => <AllAdds/>}/>
+                                <Route path={"/ads/:user"} exact render={() => <UserAds/>}/>
                                 <Route path={"/ads/show/:id"} render={(routeProps) => <IndividualAd {...routeProps}/>}/>
                                 <Route path={"/ads/create"} exact render={() => <CreateAd/>}/>
                                 <Route path={"/"} exact render={() => <Landing/>}/>
                             </Switch>
                         </main>
-                    </div>
+                        </div>
+                    </React.Fragment>
                 </BrowserRouter>
-        </React.Fragment>
     )
   }
 }

@@ -1,14 +1,6 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import * as actions from '../store/actions';
 import {connect} from 'react-redux';
-import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
-import NavigationIcon from '@material-ui/icons/Navigation';
-import Fab from '@material-ui/core/Fab';
-import Ad from './Ad';
 import '../css/AllAds.css';
 import Typography from "@material-ui/core/Typography/Typography";
 import ManyAdsDisplay from "./ManyAdsDisplay";
@@ -49,11 +41,14 @@ class AllAds extends Component {
                 id: 3
             },
         ];
-
+        let name = "";
+        if (this.props.user != null){
+            name = this.props.user.firstName
+        }
         return (
             <React.Fragment>
-                <Typography component="h4" variant="h4" gutterBottom className={"all-ads-header"}>
-                    Search the glorious ads
+                <Typography component="h5" variant="h5" gutterBottom className={"user-ads-header"}>
+                    Check out your ads, {name}
                 </Typography>
                 <ManyAdsDisplay ads={ads} searchHandler={this.searchHandler} search={this.state.search}/>
             </React.Fragment>
@@ -61,4 +56,9 @@ class AllAds extends Component {
     }
 }
 
-export default connect(null, actions)(AllAds);
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+};
+export default connect(mapStateToProps, actions)(AllAds);

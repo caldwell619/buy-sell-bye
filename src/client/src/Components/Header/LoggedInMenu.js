@@ -50,7 +50,7 @@ class LoggedInMenu extends Component{
                 <CardHeader title={"Buy, Sell, Bye"}/>
                 <List>
                     <ListSubheader>Ads</ListSubheader>
-                    {[['Ads', '/ads'], ['Create Ad', 'ads/create'], ['Show My Ads', 'ads/username']]. map(text => (
+                    {[['Ads', '/ads'], ['Create Ad', '/ads/create'], ['Show My Ads', '/ads/username']]. map(text => (
                         <ListItem button>
                             <ListItemIcon>{text[0] === "Ads" ? <LibraryBooks/> : this.determineIcon(text[0]) }</ListItemIcon>
                             <Link component={RouterLink} to={text[1]}><ListItemText primary={text[0]}/></Link>

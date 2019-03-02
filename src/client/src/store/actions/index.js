@@ -12,7 +12,6 @@ export const fetchUser = () => (dispatch) => {
         .catch(error => console.log(error))
 };
 export const toggleMenu = () => (dispatch) => {
-    console.log("Hey");
     dispatch({type: MENU_SHOWN})
 };
 export const closeMenu = () => (dispatch) => {

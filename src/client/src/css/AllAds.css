@@ -9,7 +9,7 @@
     outline: 0;
 }
 .ads-cont {
-    margin-top: 10vh;
+    margin: 5vh 0 10vh 0;
 }
 .ind-ad-cont {
     margin: 7% 0;
@@ -48,4 +48,15 @@
 .ad-description {
     overflow: scroll !important;
     height: 40vh;
+}
+.all-ads-cont {
+    margin-bottom: 3vh;
+}
+.back-to-search-btn {
+    position: fixed !important;
+    right: 10px;
+    bottom: 10px;
+}
+.user-ads-header {
+    margin-top: 5vh !important;
 }

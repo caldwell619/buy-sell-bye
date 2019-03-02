@@ -71,9 +71,10 @@ class IndividualAd extends Component {
                         Save
                     </Button>
                 </CardActions>
-                <Fab color="primary" aria-label="Add" className={"back-button"}>
+                <Link to={"/ads"}><Fab color="primary" aria-label="Add" className={"back-button"}>
                     <ArrowBack/>
                 </Fab>
+                </Link>
             </Card>
         )
     }

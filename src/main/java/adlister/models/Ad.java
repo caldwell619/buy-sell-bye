@@ -1,10 +1,20 @@
 package adlister.models;
 
 public class Ad {
-    private long id;
-    private long userId;
+    private Long id;
+    private Long userId;
     private String title;
     private String description;
+    private String price;
+
+    public Ad(){ }
+
+    public Ad( String userId, String title, String description, String price) {
+        this.userId = Long.parseLong(userId);
+        this.title = title;
+        this.description = description;
+        this.price = price;
+    }
 
     public Ad(long id, long userId, String title, String description) {
         this.id = id;
@@ -13,11 +23,6 @@ public class Ad {
         this.description = description;
     }
 
-    public Ad(long userId, String title, String description) {
-        this.userId = userId;
-        this.title = title;
-        this.description = description;
-    }
 
     public long getId() {
         return id;
@@ -49,5 +54,13 @@ public class Ad {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

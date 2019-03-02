@@ -1,0 +1,14 @@
+.create-ad-cont {
+    margin-top: 5vh;
+    padding-bottom: 10%;
+}
+.input-field-cont {
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.create-btn-cont {
+    margin-top: 15px;
+    text-align: right;
+}

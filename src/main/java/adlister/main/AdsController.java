@@ -2,6 +2,7 @@ package adlister.main;
 
 import adlister.main.service.AdsService;
 import adlister.models.Ad;
+import adlister.models.Commercial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,14 +36,9 @@ public class AdsController {
         return adsService.findOneAd(id);
     }
 
-    // insert an ad
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/api/listings/ad")
-    public void insertAd(
-            @RequestParam("user_id") String user_id,
-            @RequestParam("title") String title,
-            @RequestParam("description") String description
-            ) {
-        adsService.insertAd(1, title, description);
+    // insert an ad JSON formatted
+    @PostMapping("/api/create-ad")
+    public void insertAd(@RequestBody Ad ad){
+        System.out.println(ad.getPrice());
     }
 }

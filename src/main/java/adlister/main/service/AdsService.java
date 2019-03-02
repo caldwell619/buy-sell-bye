@@ -83,7 +83,7 @@ public class AdsService {
                     config.getPassword()
             );
             Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("select * from users");
+            ResultSet result = statement.executeQuery("select * from ads");
             while (result.next()) {
                 ads.add(new Ad(
                         result.getLong("id"),
