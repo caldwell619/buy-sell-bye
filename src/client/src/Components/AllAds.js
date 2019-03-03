@@ -4,9 +4,23 @@ import {connect} from 'react-redux';
 import '../css/AllAds.css';
 import Typography from "@material-ui/core/Typography/Typography";
 import ManyAdsDisplay from "./ManyAdsDisplay";
+import axios from "axios";
 
 
 class AllAds extends Component {
+    state = {
+        ads: []
+    };
+    componentDidMount(){
+        this.fetchAllAds()
+    }
+    fetchAllAds = () => {
+        this.props.loadingHandler();
+        axios.get(`/api/ads`).then(res => {
+            this.setState({ads: res.data});
+            this.props.loadingHandler();
+        })
+    };
     render() {
         return (
             <React.Fragment>
@@ -14,7 +28,7 @@ class AllAds extends Component {
                     <Typography component="h4" variant="h4" gutterBottom className={"all-ads-header"}>
                         Search the glorious ads
                     </Typography>
-                    <ManyAdsDisplay ads={this.props.ads} searchHidden={this.props.searchHidden}/>
+                    <ManyAdsDisplay ads={this.state.ads}/>
                 </div>
             </React.Fragment>
         )

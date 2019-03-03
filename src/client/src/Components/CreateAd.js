@@ -40,7 +40,7 @@ class CreateAd extends Component {
             username = this.props.user.username
         }
         if (this.state.redirect) {
-            return <Redirect to={`/ads/${username}`}/>
+                return <Redirect to={`/ads/show/${username}`}/>
         }
         if (this.props.user === false){
             return <Redirect to={"/login"}/>

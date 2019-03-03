@@ -11,6 +11,9 @@ import Ad from './Ad';
 import '../css/AllAds.css';
 
 class ManyAdsDisplay extends Component {
+    constructor(props){
+        super(props)
+    }
     state = {
         search: ""
     };
@@ -50,7 +53,7 @@ class ManyAdsDisplay extends Component {
                     />))}
                 </div>
                 <a href={"#top"}>
-                    <Fab variant="extended" aria-label="Delete" className={`back-to-search-btn ${this.props.searchHidden}`}>
+                    <Fab variant="extended" aria-label="Delete" className={`back-to-search-btn`}>
                         <NavigationIcon/>
                         Search
                     </Fab>
