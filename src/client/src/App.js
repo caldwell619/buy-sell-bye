@@ -10,6 +10,7 @@ import TopNavBar from './Components/Header/TopNavBar';
 import Login from "./Components/Login";
 import './css/App.css';
 import AdsHelper from "./Components/AdsHelper";
+import UserAds from "./Components/UserAds";
 
 class App extends Component {
     componentDidMount() {
@@ -34,7 +35,7 @@ class App extends Component {
                                 <Route path={"/profile"} render={() => <Profile/>}/>
                                 <Route path={"/login"} render={() => <Login/>}/>
                                 <Route path={"/register"} render={() => <Register/>}/>
-                                <Route path={"/ads"} render={() => <AdsHelper/>}/>
+                                <Route path={"/ads"} render={(routeProps) => <AdsHelper {...routeProps}/>}/>
                                 <Route path={"/"} exact render={() => <Landing/>}/>
                             </Switch>
                         </main>

@@ -9,11 +9,11 @@ insert into users (username, email, password, last_name, first_name) values ('us
 
 select * from ads where user_id = 44;
 
+delete from ads where id = 44;
 
+select count(*) from ads;
 
-select * from ads;
-
-insert into ads (user_id, title, description, price) values (44, 'dope', 'selling dope', '$33');
+insert into ads (user_id, title, description, price) values (44, 'very berry dope', 'selling dope', '$33');
 
 
 

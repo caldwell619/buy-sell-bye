@@ -14,6 +14,7 @@ class ManyAdsDisplay extends Component {
     state = {
         search: ""
     };
+
     searchHandler = event => {
         this.setState({
             search: event.target.value
@@ -24,7 +25,6 @@ class ManyAdsDisplay extends Component {
         let adsToShow = this.props.ads.filter(ad => {
            return ad.title.toLowerCase().includes(this.state.search)
         });
-
 
         return (
             <React.Fragment>
@@ -40,8 +40,14 @@ class ManyAdsDisplay extends Component {
                     </Paper>
                 </div>
                 <div className="ads-cont">
-                    {adsToShow.map(ad => (<Ad title={ad.title} description={ad.description} price={ad.price} id={ad.id}
-                                             key={ad.id} userAds={this.props.userAds}/>))}
+                    {adsToShow.map(ad => (<Ad title={ad.title}
+                                              description={ad.description}
+                                              price={ad.price}
+                                              id={ad.id}
+                                              key={ad.id}
+                                              userId={this.props.userId}
+                                              deleteAd={this.props.deleteAd}
+                    />))}
                 </div>
                 <a href={"#top"}>
                     <Fab variant="extended" aria-label="Delete" className={`back-to-search-btn ${this.props.searchHidden}`}>

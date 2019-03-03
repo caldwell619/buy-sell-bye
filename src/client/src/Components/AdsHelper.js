@@ -1,25 +1,36 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import AllAdds from "./AllAds";
 import UserAds from "./UserAds";
 import IndividualAd from "./IndividualAd";
 import CreateAd from "./CreateAd";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import * as actions from "../store/actions";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import axios from "axios";
 import '../css/AllAds.css'
 
-class AdsHelper extends Component{
+class AdsHelper extends Component {
     state = {
         ads: [],
         isLoading: false
     };
-    componentDidMount(){
+
+    componentDidMount() {
         this.setState({isLoading: true});
+        setTimeout(() => {
+            if (this.props.location.pathname.split("/")[2]) {
+                this.fetchAllAds()
+            } else {
+                this.fetchUserAds()
+            }
+        }, 100)
+    }
+
+    fetchAllAds = () => {
         axios.get("/api/ads")
             .then(res => {
-                setTimeout(()=> {
+                setTimeout(() => {
                     this.setState({
                         ads: res.data,
                         isLoading: false
@@ -31,10 +42,49 @@ class AdsHelper extends Component{
         });
     }
 
-    render(){
+    fetchUserAds = () => {
+        let userId = "";
+        if (this.props.user != null) {
+            userId = this.props.user.id;
+        }
+        setTimeout(() => {
+            axios.get(`/api/user-ads?id=${userId}`)
+                .then(res => {
+                    this.setState({
+                        ads: res.data,
+                        isLoading: false
+                    })
+                })
+                .catch(error => console.log(error));
+        }, 0)
+    };
+
+    refreshAds = adId => {
+        const updatedAds = this.state.ads.filter(ad => {
+            return ad.id !== adId
+        });
+        this.setState({
+            ads: updatedAds
+        });
+        console.log(this.state.ads)
+    };
+
+    deleteAd = adId => {
+        this.setState({isLoading: true});
+        axios.delete(`/api/delete-ad?ad_id=${adId}`)
+            .then(() => {
+                this.refreshAds(adId);
+                this.setState({
+                    isLoading: false
+                })
+            })
+            .catch(error => console.log(error))
+    };
+
+    render() {
         let name = "";
         let userId = "";
-        if (this.props.user != null){
+        if (this.props.user != null) {
             name = this.props.user.firstName;
             userId = this.props.user.id;
         }
@@ -47,13 +97,25 @@ class AdsHelper extends Component{
             searchHidden = "search-hidden"
         }
 
-            return (
+
+        return (
             <React.Fragment>
                 <div className={`daddy-ads-cont ${style}`}>
                     <Switch>
-                        <Route path={"/ads"} exact render={() => <AllAdds ads={this.state.ads} searchHidden={searchHidden}/>}/>
-                        <Route path={"/ads/show/:user"} exact render={() => <UserAds name={name} userId={userId} ads={this.state.ads} searchHidden={searchHidden}/>}/>
-                        <Route path={"/ads/view/:id"} render={(routeProps) => <IndividualAd {...routeProps}/>}/>
+                        <Route path={"/ads"} exact render={() =>
+                            <AllAdds ads={this.state.ads} searchHidden={searchHidden}/>}/>
+                        <Route path={"/ads/show/:user"} exact render={() =>
+                            <UserAds name={name} userId={userId}
+                                     ads={this.state.ads}
+                                     searchHidden={searchHidden}
+                                     deleteAd={this.deleteAd}
+                            />}/>
+                        <Route path={"/ads/view/:id"} render={(routeProps) =>
+                            <IndividualAd
+                                {...routeProps}
+                                deleteAd={this.deleteAd}
+                                ads={this.state.ads}
+                            />}/>
                         <Route path={"/ads/create"} exact render={() => <CreateAd name={name} userId={userId}/>}/>
                     </Switch>
                 </div>

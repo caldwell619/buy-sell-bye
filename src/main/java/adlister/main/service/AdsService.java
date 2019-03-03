@@ -115,6 +115,27 @@ public class AdsService {
         }
     }
 
+    public void deleteAd(long adId){
+        try {
+            DriverManager.registerDriver(new Driver());
+            Config config = new Config();
+            Connection connection = DriverManager.getConnection(
+                    config.getUrl(),
+                    config.getUsername(),
+                    config.getPassword()
+            );
+            // Preparing the statement
+            String sql = "delete from ads where id = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            // setting the prepared statement values to the ones accepted by the insert()
+            stmt.setLong(1, adId);
+            stmt.executeUpdate();
+        } catch (SQLException error){
+            System.out.print(error);
+        }
+    }
+
     public List<Ad> generateAds() {
         ads = new ArrayList<>();
         try {
