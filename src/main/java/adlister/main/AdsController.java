@@ -31,10 +31,15 @@ public class AdsController {
         return adsService.usersAds(id);
     }
 
-    // one single ad from one user
+    // delete and ad
     @RequestMapping("/api/delete-ad")
-    public void findOneAd(@RequestParam("ad_id") long id) {
+    public void deleteAd(@RequestParam("ad_id") long id) {
         adsService.deleteAd(id);
+    }
+    // display one single ad
+    @RequestMapping("/api/one-ad")
+    public Ad findOneAd(@RequestParam("ad_id") long id) {
+        return adsService.findOneAd(id);
     }
 
     // insert an ad JSON formatted

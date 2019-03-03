@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import '../css/AllAds.css';
-import '../css/Login.css';
 import Typography from "@material-ui/core/Typography/Typography";
 import ManyAdsDisplay from "./ManyAdsDisplay";
 import axios from 'axios';
+import '../css/AllAds.css';
+import '../css/Login.css';
 
 class AllAds extends Component {
     state = {
-        ads: []
+        ads: [],
+        redirect: false
     };
     componentDidMount(){
         setTimeout(() => {
@@ -21,6 +22,16 @@ class AllAds extends Component {
             this.props.loadingHandler();
         })
     };
+    deleteAd = adId => {
+        this.props.loadingHandler();
+        axios.delete(`/api/delete-ad?ad_id=${adId}`)
+            .then(() => {
+                this.props.loadingHandler();
+                this.fetchUserAds(this.props.userId);
+                this.props.successHandler();
+            })
+            .catch(error => console.log(error))
+    };
     render() {
         return (
             <React.Fragment>
@@ -30,13 +41,13 @@ class AllAds extends Component {
                 </Typography>
                 <ManyAdsDisplay ads={this.state.ads}
                                 userId={this.props.userId}
-                                deleteAd={this.props.deleteAd}
+                                deleteAd={this.deleteAd}
                 />
             </div>
+
             </React.Fragment>
         )
     }
 }
-
 
 export default AllAds;

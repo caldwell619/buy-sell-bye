@@ -3,7 +3,7 @@ use adlister_db;
 
 select * from users;
 
-select * from ads;
+select * from ads where id = 68;;
 
 SELECT * FROM users WHERE username = 'bisntach' LIMIT 1;
 

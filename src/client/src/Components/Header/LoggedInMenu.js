@@ -15,6 +15,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Person from '@material-ui/icons/Person';
 import PersonOutline from '@material-ui/icons/PersonOutline';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
+import ThumbUp from '@material-ui/icons/ThumbUp';
 import LibraryAdd from '@material-ui/icons/LibraryAdd';
 import ContactMail from '@material-ui/icons/ContactMail';
 
@@ -33,6 +34,8 @@ class LoggedInMenu extends Component{
               return <LibraryAdd/>;
           case "Show My Ads":
               return <ContactMail/>;
+          case "Saved Ads":
+              return <ThumbUp/>;
           default: return;
       }
     };
@@ -54,7 +57,7 @@ class LoggedInMenu extends Component{
                 <CardHeader title={"Buy, Sell, Bye"}/>
                 <List>
                     <ListSubheader>Ads</ListSubheader>
-                    {[['Ads', '/ads'], ['Create Ad', '/ads/create'], ['Show My Ads', `/ads/show/${username}`]].map((text, index) => (
+                    {[['Ads', '/ads'], ['Create Ad', '/ads/create'], ['Show My Ads', `/ads/show/${username}`], ['Saved Ads', '/profile/saved-ads']].map((text, index) => (
                         <ListItem button key={index}>
                             <ListItemIcon>{text[0] === "Ads" ? <LibraryBooks/> : this.determineIcon(text[0]) }</ListItemIcon>
                             <Link component={RouterLink} to={text[1]}><ListItemText primary={text[0]}/></Link>
