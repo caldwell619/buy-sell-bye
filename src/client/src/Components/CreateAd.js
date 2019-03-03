@@ -8,12 +8,16 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import '../css/CreateAd.css';
 import Button from "@material-ui/core/Button/Button";
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
 
 class CreateAd extends Component {
     state = {
         title: "",
         description: "",
-        categories: "",
+        categories: [],
         price: "",
         disabledButton: false,
         redirect: false
@@ -29,7 +33,8 @@ class CreateAd extends Component {
             userId: this.props.user.id,
             title: this.state.title,
             description: this.state.description,
-            price: this.state.price
+            price: this.state.price,
+            categories: this.state.categories
         }).then(() => {this.setState({redirect: true})})
             .catch(error => console.log(error))
     };
@@ -45,6 +50,8 @@ class CreateAd extends Component {
         if (this.props.user === false){
             return <Redirect to={"/login"}/>
         }
+        const categories = ['For Sale', 'Services', 'Furniture', 'Electronics', 'Kitchen'];
+        console.log(this.state)
 
         return (
             <div className="create-ad-cont">
@@ -76,6 +83,24 @@ class CreateAd extends Component {
                                     fullWidth={true}
                                 />
                             </div>
+                        </div>
+                        <div className="categories-cont">
+                            <FormControl>
+                                <InputLabel htmlFor="select-multiple">Name</InputLabel>
+                                <Select
+                                    multiple
+                                    className={"categories-select"}
+                                    value={this.state.categories}
+                                    onChange={this.inputHandler("categories")}
+                                    input={<Input id="select-multiple" />}
+                                >
+                                    {categories.map((category, index) => (
+                                        <MenuItem key={category} value={index}>
+                                            {category}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </div>
                         <div className="description-cont">
                             <TextField

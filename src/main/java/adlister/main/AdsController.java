@@ -45,6 +45,7 @@ public class AdsController {
     // insert an ad JSON formatted
     @PostMapping("/api/create-ad")
     public void insertAd(@RequestBody Ad ad){
-        adsService.insertAd(ad);
+        System.out.println(ad.getCategories());
+//        adsService.insertAd(ad);
     }
 }

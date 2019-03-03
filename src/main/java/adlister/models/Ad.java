@@ -1,11 +1,14 @@
 package adlister.models;
 
+import java.util.ArrayList;
+
 public class Ad {
     private Long id;
     private Long userId;
     private String title;
     private String description;
     private String price;
+    ArrayList<Integer> categories;
 
     public Ad(){ }
 
@@ -22,6 +25,17 @@ public class Ad {
         this.title = title;
         this.description = description;
         this.price = price;
+    }
+
+    public Ad(String userId, String title, String description, String price, ArrayList<Integer> categories ) {
+        this.userId = Long.parseLong(userId);
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.categories = categories;
+    }
+    public ArrayList<Integer> getCategories() {
+        return categories;
     }
 
 
