@@ -5,6 +5,7 @@ target/
 
 # Config files
 **Config.java
+**application.properties
 
 # Node Modules
 node_modules/

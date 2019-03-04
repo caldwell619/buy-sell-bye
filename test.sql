@@ -44,6 +44,9 @@ select * from ad_to_category;
 
 
 
+INSERT INTO ads(user_id, title, description, price) VALUES ('44', 'title', 'desc', '33');
 
+
+insert into ad_to_category values (68 ,4);
 
 

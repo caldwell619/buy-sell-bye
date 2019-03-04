@@ -8,7 +8,7 @@ public class Ad {
     private String title;
     private String description;
     private String price;
-    ArrayList<Integer> categories;
+    private int[] categories;
 
     public Ad(){ }
 
@@ -27,14 +27,14 @@ public class Ad {
         this.price = price;
     }
 
-    public Ad(String userId, String title, String description, String price, ArrayList<Integer> categories ) {
+    public Ad(String userId, String title, String description, String price, int[] categories ) {
         this.userId = Long.parseLong(userId);
         this.title = title;
         this.description = description;
         this.price = price;
         this.categories = categories;
     }
-    public ArrayList<Integer> getCategories() {
+    public int[] getCategories() {
         return categories;
     }
 

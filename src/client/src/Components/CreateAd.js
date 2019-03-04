@@ -86,7 +86,7 @@ class CreateAd extends Component {
                         </div>
                         <div className="categories-cont">
                             <FormControl>
-                                <InputLabel htmlFor="select-multiple">Name</InputLabel>
+                                <InputLabel htmlFor="select-multiple">Category</InputLabel>
                                 <Select
                                     multiple
                                     className={"categories-select"}

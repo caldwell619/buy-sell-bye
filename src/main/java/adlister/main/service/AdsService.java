@@ -12,24 +12,28 @@ import javax.swing.plaf.nimbus.State;
 @Service
 public class AdsService {
     List<Ad> ads;
-    Config config;
     Connection connection;
+    Config config;
 
-    public List<Ad> all(){
-        return generateAds();
-    }
-
-    public Ad findOneAd (long adId) {
+    public AdsService() {
         try {
-            config = new Config();
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
                     config.getUrl(),
                     config.getUsername(),
                     config.getPassword()
             );
+        } catch (SQLException e) {
+            throw new RuntimeException("Error connecting to the database!", e);
+        }
+    }
+    public List<Ad> all(){
+        return generateAds();
+    }
+
+    public Ad findOneAd (long adId) {
+        try {
             String query = "SELECT * FROM ads WHERE id = ?";
-            try {
                 PreparedStatement stmt = connection.prepareStatement(query);
                 stmt.setLong(1, adId);
                 ResultSet result = stmt.executeQuery();
@@ -42,26 +46,15 @@ public class AdsService {
                             result.getString("price")
                     );
                 }
-            }
-             catch (SQLException e) {
+            return null;
+        } catch (SQLException e) {
                 throw new RuntimeException("Error finding an ad", e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error connecting to the database!", e);
-        }
-        return null;
     }
+
     // accepts user id, returns all ads associated with that user
     public List<Ad> usersAds (long userId) {
         ads = new ArrayList<>();
-        try {
-            config = new Config();
-            DriverManager.registerDriver(new Driver());
-            connection = DriverManager.getConnection(
-                    config.getUrl(),
-                    config.getUsername(),
-                    config.getPassword()
-            );
             String query = "SELECT * FROM ads WHERE user_id = ?";
             try {
                 PreparedStatement stmt = connection.prepareStatement(query);
@@ -76,30 +69,23 @@ public class AdsService {
                             result.getString("price")
                     ));
                 }
+                return ads;
             } catch (SQLException e) {
                 throw new RuntimeException("Error finding the users ads", e);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error connecting to the database!", e);
-        }
-        return ads;
+
     }
 
-    public void insertAd( Ad ad){
+    public void insertAd( Ad ad) {
         long user_id = ad.getUserId();
         String title = ad.getTitle();
         String description = ad.getDescription();
         String price = ad.getPrice();
+        int[] categories = ad.getCategories();
+
+        // Preparing the statement
+        String sql = "INSERT INTO ads(user_id, title, description, price) VALUES (?, ?, ?, ?) ";
         try {
-            DriverManager.registerDriver(new Driver());
-            Config config = new Config();
-            Connection connection = DriverManager.getConnection(
-                    config.getUrl(),
-                    config.getUsername(),
-                    config.getPassword()
-            );
-            // Preparing the statement
-            String sql = "INSERT INTO ads(user_id, title, description, price) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             // setting the prepared statement values to the ones accepted by the insert()
@@ -109,7 +95,23 @@ public class AdsService {
             stmt.setString(4, price);
 
             stmt.executeUpdate();
-//            ResultSet result = stmt.getGeneratedKeys();
+            relationalAd(user_id, categories);
+        } catch (SQLException error){
+            System.out.print(error);
+        }
+    }
+
+    public void relationalAd(long adId, int[] categoryIds){
+        String sql = "INSERT INTO ad_to_category(ad_id, category_id) VALUES (?,?)";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            // setting the prepared statement values to the ones accepted by the insert()
+            stmt.setLong(1, adId);
+            for(int catId : categoryIds){
+                stmt.setInt(2, catId);
+            }
+            stmt.executeUpdate();
         } catch (SQLException error){
             System.out.print(error);
         }
@@ -117,13 +119,6 @@ public class AdsService {
 
     public void deleteAd(long adId){
         try {
-            DriverManager.registerDriver(new Driver());
-            Config config = new Config();
-            Connection connection = DriverManager.getConnection(
-                    config.getUrl(),
-                    config.getUsername(),
-                    config.getPassword()
-            );
             // Preparing the statement
             String sql = "delete from ads where id = ?";
             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -139,13 +134,6 @@ public class AdsService {
     public List<Ad> generateAds() {
         ads = new ArrayList<>();
         try {
-            DriverManager.registerDriver(new Driver());
-            Config config = new Config();
-            Connection connection = DriverManager.getConnection(
-                    config.getUrl(),
-                    config.getUsername(),
-                    config.getPassword()
-            );
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("select * from ads");
             while (result.next()) {
