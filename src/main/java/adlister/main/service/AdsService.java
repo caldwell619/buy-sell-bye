@@ -1,21 +1,18 @@
 package adlister.main.service;
-import adlister.models.Ad;
-import adlister.util.Config;
+import adlister.main.models.Ad;
+import adlister.main.util.Config;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 import com.mysql.cj.jdbc.Driver;
 
-import javax.swing.plaf.nimbus.State;
-
 @Service
 public class AdsService {
-    List<Ad> ads;
     Connection connection;
-    Config config;
 
-    public AdsService() {
+    public AdsService(){
+        Config config = new Config();
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
@@ -26,54 +23,6 @@ public class AdsService {
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
         }
-    }
-    public List<Ad> all(){
-        return generateAds();
-    }
-
-    public Ad findOneAd (long adId) {
-        try {
-            String query = "SELECT * FROM ads WHERE id = ?";
-                PreparedStatement stmt = connection.prepareStatement(query);
-                stmt.setLong(1, adId);
-                ResultSet result = stmt.executeQuery();
-                if (result.next()) {
-                    return new Ad(
-                            result.getLong("id"),
-                            result.getLong("user_id"),
-                            result.getString("title"),
-                            result.getString("description"),
-                            result.getString("price")
-                    );
-                }
-            return null;
-        } catch (SQLException e) {
-                throw new RuntimeException("Error finding an ad", e);
-            }
-    }
-
-    // accepts user id, returns all ads associated with that user
-    public List<Ad> usersAds (long userId) {
-        ads = new ArrayList<>();
-            String query = "SELECT * FROM ads WHERE user_id = ?";
-            try {
-                PreparedStatement stmt = connection.prepareStatement(query);
-                stmt.setLong(1, userId);
-                ResultSet result = stmt.executeQuery();
-                while (result.next()) {
-                    ads.add(new Ad(
-                            result.getLong("id"),
-                            result.getLong("user_id"),
-                            result.getString("title"),
-                            result.getString("description"),
-                            result.getString("price")
-                    ));
-                }
-                return ads;
-            } catch (SQLException e) {
-                throw new RuntimeException("Error finding the users ads", e);
-            }
-
     }
 
     public void insertAd( Ad ad) {
@@ -102,54 +51,20 @@ public class AdsService {
     }
 
     public void relationalAd(long adId, int[] categoryIds){
-        String sql = "INSERT INTO ad_to_category(ad_id, category_id) VALUES (?,?)";
+        String sql = "INSERT INTO ad_to_category(ad_id, category_id) VALUES ((select last_insert_id()),?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             // setting the prepared statement values to the ones accepted by the insert()
-            stmt.setLong(1, adId);
             for(int catId : categoryIds){
-                stmt.setInt(2, catId);
-            }
-            stmt.executeUpdate();
-        } catch (SQLException error){
-            System.out.print(error);
-        }
-    }
-
-    public void deleteAd(long adId){
-        try {
-            // Preparing the statement
-            String sql = "delete from ads where id = ?";
-            PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            // setting the prepared statement values to the ones accepted by the insert()
-            stmt.setLong(1, adId);
-            stmt.executeUpdate();
-        } catch (SQLException error){
-            System.out.print(error);
-        }
-    }
-
-    public List<Ad> generateAds() {
-        ads = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("select * from ads");
-            while (result.next()) {
-                ads.add(new Ad(
-                        result.getLong("id"),
-                        result.getLong("user_id"),
-                        result.getString("title"),
-                        result.getString("description"),
-                        result.getString("price")
-                ));
+                stmt.setInt(1, catId);
+                stmt.executeUpdate();
             }
         } catch (SQLException error){
-            System.out.print(error);
+            throw new RuntimeException("Error adding the categories to the db", error);
         }
-        return ads;
     }
+
 }
 
 

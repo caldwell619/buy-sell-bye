@@ -1,6 +1,6 @@
-package adlister.models;
+package adlister.main.models;
 
-import adlister.util.Password;
+import adlister.main.util.Password;
 
 public class User {
     private long id;

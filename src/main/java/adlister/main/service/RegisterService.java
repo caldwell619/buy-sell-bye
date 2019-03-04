@@ -1,10 +1,10 @@
 package adlister.main.service;
-import adlister.util.Config;
+import adlister.main.util.Config;
 import org.springframework.stereotype.Service;
 import java.sql.*;
 import java.util.List;
 import com.mysql.cj.jdbc.Driver;
-import adlister.models.User;
+import adlister.main.models.User;
 
 @Service
 public class RegisterService {

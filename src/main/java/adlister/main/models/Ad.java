@@ -1,8 +1,7 @@
-package adlister.models;
-
-import java.util.ArrayList;
+package adlister.main.models;
 
 public class Ad {
+
     private Long id;
     private Long userId;
     private String title;
@@ -10,7 +9,7 @@ public class Ad {
     private String price;
     private int[] categories;
 
-    public Ad(){ }
+    protected Ad(){ }
 
     public Ad( String userId, String title, String description, String price) {
         this.userId = Long.parseLong(userId);

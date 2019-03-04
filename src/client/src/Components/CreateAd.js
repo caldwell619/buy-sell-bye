@@ -51,7 +51,6 @@ class CreateAd extends Component {
             return <Redirect to={"/login"}/>
         }
         const categories = ['For Sale', 'Services', 'Furniture', 'Electronics', 'Kitchen'];
-        console.log(this.state)
 
         return (
             <div className="create-ad-cont">

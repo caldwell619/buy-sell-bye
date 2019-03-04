@@ -1,4 +1,4 @@
-package adlister.util;
+package adlister.main.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 

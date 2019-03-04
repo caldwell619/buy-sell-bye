@@ -1,4 +1,4 @@
-package adlister.models;
+package adlister.main.models;
 
 
 public class Commercial {

@@ -11,23 +11,17 @@ insert into users (username, email, password, last_name, first_name) values ('us
 
 select * from ads where user_id = 44;
 
-delete from ads where id = 63;
+select * from ads;
 
 select count(*) from ads;
 
 insert into ads (user_id, title, description, price) values (44, 'very berry dope', 'selling dope', '$33');
 
 CREATE TABLE ad_to_category (
-    ad_id integer unsigned not null,
-    category_id integer unsigned not null
-    foreign key (ad_id) references ads (id),
-    foreign key (category_id) references relational_categories (id)
-);
-CREATE TABLE ad_to_category (
     ad_id INTEGER UNSIGNED NOT NULL,
     category_id INTEGER UNSIGNED NOT NULL,
-    FOREIGN KEY (ad_id) REFERENCES ads(id),
-    FOREIGN KEY (category_id) REFERENCES relational_categories(id)
+    FOREIGN KEY (ad_id) REFERENCES ads(id) on delete cascade,
+    FOREIGN KEY (category_id) REFERENCES relational_categories(id) on delete cascade
 );
 
 select * from ad_to_category;
@@ -42,11 +36,8 @@ select * from relational_categories;
 
 select * from ad_to_category;
 
-
-
 INSERT INTO ads(user_id, title, description, price) VALUES ('44', 'title', 'desc', '33');
-
 
 insert into ad_to_category values (68 ,4);
 
-
+select * from ads order by id desc;

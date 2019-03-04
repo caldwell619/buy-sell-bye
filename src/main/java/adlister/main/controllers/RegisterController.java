@@ -1,7 +1,6 @@
-package adlister.main;
+package adlister.main.controllers;
 
 import adlister.main.service.RegisterService;
-import adlister.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

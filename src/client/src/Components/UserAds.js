@@ -7,8 +7,7 @@ import '../css/Login.css';
 
 class AllAds extends Component {
     state = {
-        ads: [],
-        redirect: false
+        ads: []
     };
     componentDidMount(){
         setTimeout(() => {

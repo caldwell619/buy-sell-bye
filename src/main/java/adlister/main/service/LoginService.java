@@ -1,6 +1,6 @@
 package adlister.main.service;
-import adlister.models.User;
-import adlister.util.Config;
+import adlister.main.models.User;
+import adlister.main.util.Config;
 import org.springframework.stereotype.Service;
 import java.sql.*;
 import java.util.List;
