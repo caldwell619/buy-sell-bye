@@ -2,31 +2,27 @@ package adlister.main.models;
 
 import adlister.main.util.Password;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
+    @Id @GeneratedValue
     private long id;
+    @Column
     private String username;
+    @Column
     private String email;
+    @Column
     private String password;
+    @Column
     private String firstName;
+    @Column
     private String lastName;
 
     public User() {}
 
-    public String getFirstName() {
-        return firstName;
-    }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     // User 1st time creation constructor
     public User(String username, String email, String password, String firstName, String lastName) {
@@ -35,6 +31,10 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         setPassword(password);
+    }
+    // JSON constructor
+    public User(String id) {
+        this.id = Long.parseLong(id);
     }
 
     // User retrieval constructor
@@ -53,6 +53,9 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
+    }
+    public void setId(String id) {
+        this.id = Long.parseLong(id);
     }
 
     public String getUsername() {
@@ -77,5 +80,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = Password.encrypt(password);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

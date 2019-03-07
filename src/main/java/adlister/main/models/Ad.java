@@ -1,57 +1,69 @@
 package adlister.main.models;
 
-public class Ad {
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@Table(name = "ads")
+public class Ad {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private Long userId;
+    @Column
     private String title;
+    @Column
     private String description;
+    @Column
     private String price;
-    private int[] categories;
+    @OneToOne
+    private User user;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="ads_categories",
+            joinColumns={@JoinColumn(name="ad_id")},
+            inverseJoinColumns={@JoinColumn(name="category_id")}
+    )
+    private List<AdCategory> categories;
+
 
     protected Ad(){ }
 
-    public Ad( String userId, String title, String description, String price) {
-        this.userId = Long.parseLong(userId);
+    public Ad(String title, String description, String price, User user, List<AdCategory> categories) {
         this.title = title;
         this.description = description;
         this.price = price;
+        this.user = user;
+        this.categories = categories;
     }
-
-    public Ad(long id, long userId, String title, String description, String price) {
-        this.id = id;
-        this.userId = userId;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-    }
-
-    public Ad(String userId, String title, String description, String price, int[] categories ) {
-        this.userId = Long.parseLong(userId);
+    public Ad(String title, String description, String price, List<AdCategory> categories) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.categories = categories;
     }
-    public int[] getCategories() {
-        return categories;
+
+    public Ad(long id, String title, String description, String price, User user, List<AdCategory> categories) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.user = user;
+        this.categories = categories;
     }
 
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public User getUser() {
+        return this.user;
     }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUser(User user){
+        this.user = user;
     }
 
     public String getTitle() {
@@ -76,5 +88,13 @@ public class Ad {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public List<AdCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<AdCategory> categories) {
+        this.categories = categories;
     }
 }

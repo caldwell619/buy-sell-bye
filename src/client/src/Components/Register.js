@@ -45,7 +45,13 @@ class Register extends Component{
 
     createUser = () => {
         this.setState({disabledButton: true});
-        axios.post("http://localhost:8080/api/register", `email=${this.state.email}&username=${this.state.username}&password=${this.state.password}&first-name=${this.state.firstName}&last-name=${this.state.lastName}`)
+        axios.post("/api/register-repo", {
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+        })
         .then(() => {
             this.setState({
                 disabledButton: false,

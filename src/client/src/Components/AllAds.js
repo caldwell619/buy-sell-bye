@@ -17,6 +17,7 @@ class AllAds extends Component {
     fetchAllAds = () => {
         this.props.loadingHandler();
         axios.get(`/api/ads`).then(res => {
+            console.log(res.data);
             this.setState({ads: res.data});
             this.props.loadingHandler();
         })

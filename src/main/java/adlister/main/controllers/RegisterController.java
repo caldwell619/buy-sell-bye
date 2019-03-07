@@ -1,14 +1,16 @@
 package adlister.main.controllers;
 
-import adlister.main.service.RegisterService;
-import org.springframework.beans.factory.annotation.Autowired;
+import adlister.main.models.User;
+import adlister.main.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RegisterController {
+    private final UserRepository userDao;
 
-    @Autowired
-    RegisterService registerService;
+    public RegisterController(UserRepository userDao) {
+        this.userDao = userDao;
+    }
 
     // request param must be url encoded
     @CrossOrigin(value = "http://localhost:3000")
@@ -18,7 +20,11 @@ public class RegisterController {
                              @RequestParam("email") String email,
                              @RequestParam("first-name") String firstName,
                              @RequestParam("last-name") String lastName){
-        registerService.createUser(username, password, email, firstName, lastName);
+        return "done";
+    }
+    @RequestMapping("/api/register-repo")
+    public String createUser(@RequestBody User user){
+        userDao.save(user);
         return "done";
     }
 }

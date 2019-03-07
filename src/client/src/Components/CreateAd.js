@@ -24,17 +24,19 @@ class CreateAd extends Component {
     };
 
     inputHandler = type => event => {
-        this.setState({
-            [type]: event.target.value
-        })
+        this.setState({[type]: event.target.value})
     };
     createAd = () => {
+        let categories = [];
+        this.state.categories.forEach(cat => {
+           categories.push({id: cat})
+        });
         axios.post("/api/create-ad", {
-            userId: this.props.user.id,
+            user: {id: this.props.user.id},
             title: this.state.title,
             description: this.state.description,
             price: this.state.price,
-            categories: this.state.categories
+            categories: categories
         }).then(() => {this.setState({redirect: true})})
             .catch(error => console.log(error))
     };
@@ -94,7 +96,7 @@ class CreateAd extends Component {
                                     input={<Input id="select-multiple" />}
                                 >
                                     {categories.map((category, index) => (
-                                        <MenuItem key={category} value={index}>
+                                        <MenuItem key={category} value={index + 1}>
                                             {category}
                                         </MenuItem>
                                     ))}

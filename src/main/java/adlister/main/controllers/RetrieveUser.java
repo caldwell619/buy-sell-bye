@@ -9,8 +9,8 @@ import javax.servlet.http.HttpSession;
 
 
 @RestController
-
 public class RetrieveUser {
+
     @GetMapping("/api/logged-user")
     public User sendUsers(HttpServletRequest request){
         HttpSession session = request.getSession();

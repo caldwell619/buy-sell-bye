@@ -1,8 +1,7 @@
 package adlister.main.controllers;
-import adlister.main.service.LoginService;
 import adlister.main.models.User;
+import adlister.main.repositories.UserRepository;
 import adlister.main.util.Password;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,16 +11,19 @@ import javax.servlet.http.HttpSession;
 @SessionAttributes("user")
 @CrossOrigin("http://localhost:3000")
 public class LoginController {
+    private final UserRepository userDao;
 
-    @Autowired
-    LoginService loginService;
+    public LoginController(UserRepository userDao) {
+        this.userDao = userDao;
+    }
+
 
     @RequestMapping("/api/login-user")
     public void checkoutUser(@RequestParam("username") String username,
                              @RequestParam("password") String password,
                              HttpServletRequest request){
         HttpSession session = request.getSession();
-        User comparingUser = loginService.findByUsername(username);
+        User comparingUser = userDao.getUserByUsername(username);
         if (Password.check(password, comparingUser.getPassword())) {
             session.setAttribute("authUser", comparingUser);
         } else {

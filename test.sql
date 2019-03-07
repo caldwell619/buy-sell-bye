@@ -41,3 +41,14 @@ INSERT INTO ads(user_id, title, description, price) VALUES ('44', 'title', 'desc
 insert into ad_to_category values (68 ,4);
 
 select * from ads order by id desc;
+
+select * from users;
+
+insert into categories(id, name) values
+(2,'Electronics')
+
+select * from categories;
+
+delete from categories where id = 2;
+
+
